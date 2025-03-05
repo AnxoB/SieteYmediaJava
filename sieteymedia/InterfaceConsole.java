@@ -2,10 +2,12 @@ package sieteymedia;
 
 public class InterfaceConsole {
 
+
     InterfaceConsole(){
         SieteYMedia miObjetoSieteYMedia= new SieteYMedia();
         presentarJuego();
-
+        miObjetoSieteYMedia.turnoJugador();
+        miObjetoSieteYMedia.turnoBanca();
     }
 
     public static void main(String[] args) {

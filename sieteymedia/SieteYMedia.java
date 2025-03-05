@@ -12,6 +12,12 @@ public class SieteYMedia {
     Carta[] cartasBanca;
     Scanner sc = new Scanner(System.in);
 
+    SieteYMedia(){
+        baraja=new Baraja();
+        baraja.barajar();
+        cartasJugador = new Carta[15];
+        cartasBanca = new Carta[15];
+    }
 
 
     void turnoJugador() {
@@ -40,7 +46,6 @@ public class SieteYMedia {
     void jugar() {
         turnoJugador();
         turnoBanca();
-        //System.out.println("Adios");
     }
 
     void turnoBanca() {
