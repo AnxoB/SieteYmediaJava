@@ -1,18 +1,21 @@
 package sieteymedia;
+import java.util.Scanner;
 
 public class InterfaceConsole {
 
+    SieteYMedia miObjetoSieteYMedia;
+    Scanner sc = new Scanner(System.in);
 
     InterfaceConsole(){
-        SieteYMedia miObjetoSieteYMedia= new SieteYMedia();
+        miObjetoSieteYMedia= new SieteYMedia();
+
         presentarJuego();
-        miObjetoSieteYMedia.turnoJugador();
+        jugar();
 
-        miObjetoSieteYMedia.turnoBanca();
     }
-
     public static void main(String[] args) {
         new InterfaceConsole();
+
     }
 
     void presentarJuego() {
@@ -34,5 +37,41 @@ public class InterfaceConsole {
         System.out.println(
                 "- En este proceso puede ocurrir que la banca 'se pase' y entonces pierde la banca y gana el jugador.");
         System.out.println("\nEmpecemos!!!\n");
+    }
+
+    void jugar() {
+        boolean seguir = true;
+        miObjetoSieteYMedia.insertarCartaEnArray(miObjetoSieteYMedia.getCartasJugador(), miObjetoSieteYMedia.baraja.darCartas(1)[0]);
+        while (seguir){
+            System.out.println("Éstas son tus cartas jugador:");
+            System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.getCartasJugador()));
+            System.out.println("\n\tValor de cartas: " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasJugador));
+            if (miObjetoSieteYMedia.jugadorSePaso()){
+                System.out.println("Jugador, te has pasado en tu jugada anterior, gana la banca");
+                return;
+            }
+            System.out.println("\n¿Pides [C]arta o te [P]lantas?");
+            char opc = sc.next().trim().toUpperCase().charAt(0);
+
+            if (opc == 'C'){
+                miObjetoSieteYMedia.turnoJugador();
+            } else {
+                seguir = false;
+            }
+        }
+
+        System.out.println("\n\nTurno de banca ...");
+        miObjetoSieteYMedia.turnoBanca();
+        System.out.println("Éstas son mis cartas:");
+        System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.getCartasBanca()));
+        System.out.println("\nValor de  mis cartas(banca): " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasBanca));
+
+        if (miObjetoSieteYMedia.bancaSePaso()){
+            System.out.println("me pasé, ganas tú,jugador");
+        } else{
+            System.out.println("Gana la banca");
+        }
+
+        System.out.println("Adios");
     }
 }

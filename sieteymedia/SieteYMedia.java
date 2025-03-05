@@ -3,44 +3,40 @@ package sieteymedia;
 import recursos.Baraja;
 import recursos.Carta;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SieteYMedia {
 
     Baraja baraja;
-    Carta[] cartasJugador;
-    Carta[] cartasBanca;
+    ArrayList<Carta> cartasJugador;
+    ArrayList<Carta> cartasBanca;
     Scanner sc = new Scanner(System.in);
 
     SieteYMedia(){
         baraja=new Baraja();
         baraja.barajar();
-        cartasJugador = new Carta[15];
-        cartasBanca = new Carta[15];
+        cartasJugador = new ArrayList<>();
+        cartasBanca = new ArrayList<>();
     }
 
 
     void turnoJugador() {
-        char opc = 'C';
         // obligamos a que como mínimo se tenga 1 carta
         //System.out.println("Como mínimo recibes una carta, luego puedes decidir si seguir o plantarte");
-        while (valorCartas(cartasJugador) < 7.5 && opc == 'C') {
-            Carta c = baraja.darCartas(1)[0];
+        Carta c = baraja.darCartas(1)[0];
             // insertamos c en las cartas del jugador
-            insertarCartaEnArray(cartasJugador, c);
+        insertarCartaEnArray(cartasJugador, c);
+        double valor = valorCartas(cartasJugador);
             // mostramos cartas y su valor, si se pasa se sale del bucle
             //System.out.println("Éstas son tus cartas jugador:");
-            mostrarCartas(cartasJugador);
-            double valor = valorCartas(cartasJugador);
+            //mostrarCartas(cartasJugador);
             //System.out.println("\n\tValor de cartas: " + valor);
-            if (valor < 7.5) {
-                // suponemos que el usuario teclea bien !!!
-                //System.out.println("\n¿Pides [C]arta o te [P]lantas?");
-                opc = sc.next().trim().toUpperCase().charAt(0);
-            }
 
-        }
+    }
 
+    public boolean jugadorSePaso() {
+        return valorCartas(cartasJugador) > 7.5;
     }
 
     void turnoBanca() {
@@ -57,44 +53,45 @@ public class SieteYMedia {
             Carta c = baraja.darCartas(1)[0];
             insertarCartaEnArray(cartasBanca, c);
         }
-        //System.out.println("Éstas son mis cartas:");
+        /*System.out.println("Éstas son mis cartas:");
         mostrarCartas(cartasBanca);
         //System.out.println("\nValor de  mis cartas(banca): " + valorCartas(cartasBanca));
         if (valorCartas(cartasBanca) > 7.5) {
             //System.out.println("me pasé, ganas tú,jugador");
         } else {
             //System.out.println("Gana la banca");
-        }
+        }*/
     }
 
-    double valorCartas(Carta[] cartas) {
-        double total = 0.0;
-        int val;
-        int i = 0;
-        while (cartas[i] != null) {
-            val = cartas[i].getNumero();
-            total += (val > 7) ? 0.5 : val;
-            i++;
-        }
 
+    public boolean bancaSePaso() {
+        return valorCartas(cartasBanca) > 7.5;
+    }
+
+
+
+    double valorCartas(ArrayList<Carta> cartas) {
+        double total = 0.0;
+        for (Carta carta : cartas) {  // Usamos un bucle for-each para iterar sobre el ArrayList
+            int val = carta.getNumero();
+            total += (val > 7) ? 0.5 : val;  // Se suma 0.5 si el número es mayor que 7
+        }
         return total;
     }
 
-    void insertarCartaEnArray(Carta[] cartas, Carta c) {
-        // inserta al final detectando el primer null
-        int i = 0;
-        while (cartas[i] != null) {
-            i++;
-        }
-        cartas[i] = c;
-
+    void insertarCartaEnArray(ArrayList<Carta> cartas, Carta c) {
+        cartas.add(c);
     }
 
-    void mostrarCartas(Carta[] cartas) {
-        int i = 0;
-        while (cartas[i] != null) {
-            System.out.print("\t" + cartas[i]);
-            i++;
-        }
+    ArrayList<Carta> mostrarCartas(ArrayList<Carta> cartas) {
+        return cartas;
+    }
+
+    public ArrayList<Carta> getCartasJugador() {
+        return cartasJugador;
+    }
+
+    public ArrayList<Carta> getCartasBanca() {
+        return cartasBanca;
     }
 }
