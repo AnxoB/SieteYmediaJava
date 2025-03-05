@@ -7,12 +7,12 @@ public class InterfaceConsole {
         SieteYMedia miObjetoSieteYMedia= new SieteYMedia();
         presentarJuego();
         miObjetoSieteYMedia.turnoJugador();
+
         miObjetoSieteYMedia.turnoBanca();
     }
 
     public static void main(String[] args) {
         new InterfaceConsole();
-
     }
 
     void presentarJuego() {

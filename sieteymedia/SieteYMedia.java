@@ -43,11 +43,6 @@ public class SieteYMedia {
 
     }
 
-    void jugar() {
-        turnoJugador();
-        turnoBanca();
-    }
-
     void turnoBanca() {
         // lo primero es consultar el valor que alcanzó el jugador en su turno
         double valorCartasJugador = valorCartas(cartasJugador);
