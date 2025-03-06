@@ -8,7 +8,6 @@ public class InterfaceConsole {
 
     InterfaceConsole(){
         miObjetoSieteYMedia= new SieteYMedia();
-
         presentarJuego();
         jugar();
 
@@ -40,24 +39,27 @@ public class InterfaceConsole {
     }
 
     void jugar() {
-        boolean seguir = true;
         miObjetoSieteYMedia.insertarCartaEnArray(miObjetoSieteYMedia.getCartasJugador(), miObjetoSieteYMedia.baraja.darCartas(1)[0]);
-        while (seguir){
+        while (!miObjetoSieteYMedia.jugadorSePaso()){
             System.out.println("Éstas son tus cartas jugador:");
             System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.getCartasJugador()));
             System.out.println("\n\tValor de cartas: " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasJugador));
-            if (miObjetoSieteYMedia.jugadorSePaso()){
-                System.out.println("Jugador, te has pasado en tu jugada anterior, gana la banca");
-                return;
-            }
             System.out.println("\n¿Pides [C]arta o te [P]lantas?");
             char opc = sc.next().trim().toUpperCase().charAt(0);
 
             if (opc == 'C'){
                 miObjetoSieteYMedia.turnoJugador();
             } else {
-                seguir = false;
+                break;
             }
+        }
+
+        if (miObjetoSieteYMedia.jugadorSePaso()){
+            System.out.println("Éstas son tus cartas jugador:");
+            System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.getCartasJugador()));
+            System.out.println("\n\tValor de cartas: " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasJugador));
+            System.out.println("Jugador, te has pasado en tu jugada anterior, gana la banca");
+            return;
         }
 
         System.out.println("\n\nTurno de banca ...");
