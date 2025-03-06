@@ -11,7 +11,6 @@ public class SieteYMedia {
     Baraja baraja;
     ArrayList<Carta> cartasJugador;
     ArrayList<Carta> cartasBanca;
-    Scanner sc = new Scanner(System.in);
 
     SieteYMedia(){
         baraja=new Baraja();
@@ -64,13 +63,5 @@ public class SieteYMedia {
 
     ArrayList<Carta> mostrarCartas(ArrayList<Carta> cartas) {
         return cartas;
-    }
-
-    public ArrayList<Carta> getCartasJugador() {
-        return cartasJugador;
-    }
-
-    public ArrayList<Carta> getCartasBanca() {
-        return cartasBanca;
     }
 }
