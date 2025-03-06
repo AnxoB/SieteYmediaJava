@@ -1,5 +1,7 @@
 package sieteymedia;
+import java.util.Arrays;
 import java.util.Scanner;
+import recursos.Carta;
 
 public class InterfaceConsole {
 
@@ -42,7 +44,7 @@ public class InterfaceConsole {
         miObjetoSieteYMedia.insertarCartaEnArray(miObjetoSieteYMedia.cartasJugador, miObjetoSieteYMedia.baraja.darCartas(1)[0]);
         while (!miObjetoSieteYMedia.jugadorSePaso()){
             System.out.println("Éstas son tus cartas jugador:");
-            System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.cartasJugador));
+            mostrarCartas(miObjetoSieteYMedia.getCartasJugador());
             System.out.println("\n\tValor de cartas: " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasJugador));
             System.out.println("\n¿Pides [C]arta o te [P]lantas?");
             char opc = sc.next().trim().toUpperCase().charAt(0);
@@ -56,7 +58,7 @@ public class InterfaceConsole {
 
         if (miObjetoSieteYMedia.jugadorSePaso()){
             System.out.println("Éstas son tus cartas jugador:");
-            System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.cartasJugador));
+            mostrarCartas(miObjetoSieteYMedia.getCartasJugador());
             System.out.println("\n\tValor de cartas: " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasJugador));
             System.out.println("Jugador, te has pasado en tu jugada anterior, gana la banca");
             return;
@@ -65,7 +67,7 @@ public class InterfaceConsole {
         System.out.println("\n\nTurno de banca ...");
         miObjetoSieteYMedia.turnoBanca();
         System.out.println("Éstas son mis cartas:");
-        System.out.println(miObjetoSieteYMedia.mostrarCartas(miObjetoSieteYMedia.cartasBanca));
+        mostrarCartas(miObjetoSieteYMedia.getCartasBanca());
         System.out.println("\nValor de  mis cartas(banca): " + miObjetoSieteYMedia.valorCartas(miObjetoSieteYMedia.cartasBanca));
 
         if (miObjetoSieteYMedia.bancaSePaso()){
@@ -75,5 +77,13 @@ public class InterfaceConsole {
         }
 
         System.out.println("Adios");
+    }
+
+    void mostrarCartas(Carta[] cartas) {
+        int i = 0;
+        while (cartas[i] != null) {
+            System.out.print("\t" + cartas[i]);
+            i++;
+        }
     }
 }

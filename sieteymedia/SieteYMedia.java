@@ -3,20 +3,18 @@ package sieteymedia;
 import recursos.Baraja;
 import recursos.Carta;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class SieteYMedia {
 
     Baraja baraja;
-    ArrayList<Carta> cartasJugador;
-    ArrayList<Carta> cartasBanca;
+    Carta[] cartasJugador;
+    Carta[] cartasBanca;
 
     SieteYMedia(){
         baraja=new Baraja();
         baraja.barajar();
-        cartasJugador = new ArrayList<>();
-        cartasBanca = new ArrayList<>();
+        cartasJugador = new Carta[15];
+        cartasBanca = new Carta[15];
     }
 
 
@@ -48,20 +46,35 @@ public class SieteYMedia {
 
 
 
-    double valorCartas(ArrayList<Carta> cartas) {
+    double valorCartas(Carta[] cartas) {
         double total = 0.0;
-        for (Carta carta : cartas) {
-            int val = carta.getNumero();
+        int val;
+        int i = 0;
+        while (cartas[i] != null) {
+            val = cartas[i].getNumero();
             total += (val > 7) ? 0.5 : val;
+            i++;
         }
+
         return total;
     }
 
-    void insertarCartaEnArray(ArrayList<Carta> cartas, Carta c) {
-        cartas.add(c);
+    void insertarCartaEnArray(Carta[] cartas, Carta c) {
+        // inserta al final detectando el primer null
+        int i = 0;
+        while (cartas[i] != null) {
+            i++;
+        }
+        cartas[i] = c;
+
     }
 
-    ArrayList<Carta> mostrarCartas(ArrayList<Carta> cartas) {
-        return cartas;
+    public Carta[] getCartasJugador() {
+        return cartasJugador;
     }
+
+    public Carta[] getCartasBanca() {
+        return cartasBanca;
+    }
+
 }
